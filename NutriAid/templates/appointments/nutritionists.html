@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} - Nutritionists{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block text-center">
+                <h1 class="text-capitalize my-5 text-lg" style="color:deepblue">Nutritionists</h1>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section nutritionist">
+    <div class="container" style="text-align:center">
+
+        <div class="row shuffle-wrapper portfolio-gallery">
+            {% for nutritionist in nutritionists %}
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item">
+                <div class="position-relative doctor-inner-box">
+                    <div class="doctor-profile">
+                        <div class="doctor-img">
+                            {% if nutritionist.image %}
+                            <img src="{{ nutritionist.image.url }}" alt="{{ nutritionist.user.name }}"
+                                 class="img-fluid w-100">
+
+                            {% else %}
+                            <img src="{% static 'images/placeholders/user-placeholder.jpg' %}"
+                                 alt="{{ nutritionist.user.name }}"
+                                 class="img-fluid w-100">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="content mt-3">
+                        <h4 class="mb-0">
+                            <a href="{% url 'nutritionist-profile' nutritionist.user.id %}">
+                                {{ nutritionist.user.name }}
+                            </a>
+                        </h4>
+                        <p>{{ nutritionist.specialization }}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a class="btn btn-primary" href="{% url 'make-appointment' nutritionist.user.id %}">Make
+                                Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

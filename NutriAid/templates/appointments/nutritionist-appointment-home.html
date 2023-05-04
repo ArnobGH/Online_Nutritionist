@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Appointments{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block text-center">
+                <h1 class="text-capitalize mb-5 text-lg">Appointments</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <h3 class="" style="text-align:center">Upcoming Appointments</h3>
+
+        {% if not upcoming_appointments %}
+        <h5 class="mx-3" style="text-align:center">No Upcoming Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in upcoming_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h5>Appointment Requested by
+                        <a href="{% url 'patient-profile' appointment.patient.user.id %}" target="_blank"
+                           class="text-color-2">
+                            {{ appointment.patient.user.name }}
+                        </a></h5>
+
+                    <h5>On <span class="text-color-2">{{ appointment.date }}</span></h5>
+                    <h5>At <span class="text-color-2">{{ appointment.time }}</span></h5>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h3 class="" style="text-align:center">Pending Appointments</h3>
+
+        {% if not pending_appointments %}
+        <h5 class="mx-3" style="text-align:center">No Pending Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in pending_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h5>Appointment Requested by
+                        <a href="{% url 'patient-profile' appointment.patient.user.id %}" target="_blank"
+                           class="text-color-2">
+                            {{ appointment.patient.user.name }}
+                        </a></h5>
+
+                    <h5>On <span class="text-color-2">{{ appointment.date }}</span></h5>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h3 class="" style="text-align:center">Completed Appointments</h3>
+
+        {% if not completed_appointments %}
+        <h5 class="mx-3" style="text-align:center">No Completed Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in completed_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h5>Appointment Requested by
+                        <a href="{% url 'patient-profile' appointment.patient.user.id %}" target="_blank"
+                           class="text-color-2">
+                            {{ appointment.patient.user.name }}
+                        </a></h5>
+
+                    <h5>On <span class="text-color-2">{{ appointment.date }}</span></h5>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h3 class="" style="text-align:center">Rejected Appointments</h3>
+
+        {% if not rejected_appointments %}
+        <h5 class="mx-3" style="text-align:center">No Rejected Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in rejected_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h5>Appointment Requested by
+                        <a href="{% url 'patient-profile' appointment.patient.user.id %}" target="_blank"
+                           class="text-color-2">
+                            {{ appointment.patient.user.name }}
+                        </a></h5>
+
+                    <h5>On <span class="text-color-2">{{ appointment.date }}</span></h5>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr/>
+    </div>
+</section>
+
+{% endblock %}

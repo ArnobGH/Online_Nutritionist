@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Contact{% endblock %}
+
+
+{% block content %}
+
+<div class="login-form col-lg-7" style="margin: 50px auto;
+  	                            font-size: 15px;">
+
+    <form method="post" style="margin-bottom: 15px;
+                                background: #f7f7f7;
+                                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                                padding: 50px;">
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-12 mt-4">
+            <div class=" my-4">
+                <div class="col-lg-12">
+                    <div class="">
+                        <h3 class="text-black" style="text-align:center">Contact Us</h3>
+                        <b><p class="mb-3" style="text-align:center">For more information or to set up an appointment, please contact us! You can fill out the form and we will be in touch.</p><b>
+                    </div>
+
+                    <div class="">
+                        <form action="{% url 'contact' %}" method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group mb-3" style="text-align:center">
+                                <label class="form-label" style="text-align:center">Your Name</label>
+                                <input type="text" class="form-control" value="{{request.user.name}}" name="name"
+                                       required/>
+                                
+                            </div>
+
+                            <div class="form-group mb-3" style="text-align:center">
+                                <label class="form-label">Your Email Address</label>
+                                <input type="text" class="form-control" value="{{request.user.email}}" name="email"
+                                       required/>
+                                
+                            </div>
+
+                            <div class="form-group mb-3" style="text-align:center">
+                                <label class="form-label">Message</label>
+                                <textarea type="text" class="form-control" name="message" rows="5" required></textarea>
+                               
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-4">
+                                    <button class="btn btn-block btn-primary btn-md" type="submit">
+                                       Send
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="my-3">
+                    {% for message in messages %}
+                    <p class="note note-success">{{message}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /.row -->
+</div>
+</div>
+
+{% endblock %}

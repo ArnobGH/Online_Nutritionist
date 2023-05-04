@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Appointment Information{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <h1 class="text-capitalize m-5 text-lg">Appointment Details</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<section class="section">
+    <div class="container" style="text-align:center">
+        <div class="row mb-3">
+            <div class="col-lg-7">
+                <h3>Appointment Status:
+                    {% if is_upcoming %}
+                    <span class="text-secondary">Upcoming</span>
+                    {% elif is_pending %}
+                    <span class="text-secondary">Pending</span>
+                    {% elif is_completed %}
+                    <span class="text-success">Completed</span>
+                    {% elif is_canceled %}
+                    <span class="text-danger">Rejected</span>
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+        <div class="row"  style="text-align:center">
+            <div class="col-lg-6">
+                <h3 class="mb-3">Nutritionist:
+                    <a href="{% url 'nutritionist-profile' appointment.nutritionist.user.id %}" class="text-color-2">
+                        {{ appointment.nutritionist.user.name }}
+                    </a>
+                </h3>
+                {% if request.user.is_nutritionist %}
+
+                <h3>Patient:
+                    <a href="{% url 'patient-profile' appointment.patient.user.id %}" class="text-color-2">
+                        {{ appointment.patient.user.name }}
+                    </a>
+                </h3>
+                {% endif %}
+                <h3 class="my-3">Department: <span class="text-color-2">{{ appointment.nutritionist.specialization }}</span>
+                </h3>
+                <h3 class="my-3">Date: <span class="text-color-2">{{ appointment.date }}</span></h3>
+                <h3 class="my-3">Time: <span class="text-color-2">
+                    {% if appointment.time %}
+                    {{ appointment.time }}
+                    {% else %}
+                    Not Yet Specified
+                    {% endif %}
+                </span>
+                </h3>
+                <h3 class="my-3">Meeting Link:
+                    {% if appointment.meet_link %}
+                    <a href="{{ appointment.meet_link }}" target="_blank" class="text-color-2">
+                        {{ appointment.meet_link }}
+                    </a>
+                    {% else %}
+                    <span class="text-color-2">Not Yet Specified</span>
+                    {% endif %}
+                </h3>
+            </div>
+            {% if request.user.is_patient and is_pending %}
+            <div class="col-lg-6 text-center">
+                <a href="{% url 'patient-appointment-update' appointment.id %}"
+                   class="btn btn-secondary btn-round-full mt-3">Update Appointment</a>
+                <br/>
+                <a href="{% url 'appointment-delete' appointment.id %}"
+                   class="btn btn-danger btn-round-full mt-3">Delete Appointment</a>
+            </div>
+            {% elif request.user.is_nutritionist and is_pending %}
+            <div class="col-lg-6 text-center">
+                <a href="{% url 'nutritionist-appointment-update' appointment.id %}"
+                   class="btn btn-success btn-round-full mt-3">
+                    Accept Appointment
+                </a><br/>
+                <a href="{% url 'appointment-reject' appointment.id %}"
+                   class="btn btn-danger btn-round-full mt-3">
+                    Reject Appointment
+                </a>
+            </div>
+            {% elif request.user.is_nutritionist and is_upcoming %}
+            <div class="col-lg-6">
+                <form method="GET">
+                    <input class="btn btn-success" name="completeAppointment" type="submit"
+                           value="Mark as Complete"/>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

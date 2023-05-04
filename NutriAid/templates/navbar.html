@@ -1,0 +1,103 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: blue">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <h3><img src="{% static 'images/logo.png' %}" style="height: 50px; weight: 50px;" alt="" class="img-fluid">
+                Online Nutritionist</h3>
+        </a>
+
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+
+                {% if request.user.is_authenticated and request.user.is_patient %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patient-appointment-home' %}">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'calc' %}">Calculation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'nutritionists' %}">Nutritionists</a>
+                </li>
+
+                {% elif request.user.is_authenticated and request.user.is_nutritionist %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'nutritionist-appointment-home' %}">Appointments</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+
+            </ul>
+
+            {% if request.user.is_authenticated %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true"
+                       class="nav-link dropdown-toggle"
+                       data-mdb-toggle="dropdown"
+                       href="#" id="navbarDropdownMenuLink2" role="button">
+                        {{ request.user.name }}
+                    </a>
+                    <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+
+                        {% if request.user.is_patient %}
+                        <a class="dropdown-item" href="{% url 'patient-profile' request.user.id %}">
+                            <i class="far fa-user me-2"></i>Profile
+                        </a>
+
+                        {% elif request.user.is_nutritionist %}
+                        <a class="dropdown-item" href="{% url 'nutritionist-profile' request.user.id %}">
+                            <i class="far fa-user me-2"></i>Profile
+                        </a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+            {% else %}
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link me-2" href="{% url 'login' %}">Login</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true"
+                       class="nav-link dropdown-toggle"
+                       data-mdb-toggle="dropdown"
+                       href="#" id="navbarDropdownMenuLink" role="button">
+                        Get Started
+                    </a>
+                    <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'nutritionist-register' %}">
+                            Nutritionist Sign Up
+                        </a>
+                        <a class="dropdown-item" href="{% url 'patient-register' %}">
+                            Patient Sign Up
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>

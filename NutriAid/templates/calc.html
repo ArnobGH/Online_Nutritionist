@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 style="text-align:center"> Choose what you want to know.. </h2> <br><br>
+
+<h5 style="text-align:center"><a href="{%url 'bmi'%}"
+    <button>Calculate BMI</button>
+
+</a></h5><br><br>
+
+<h5 style="text-align:center"><a href="{%url 'bmr'%}"
+    <button>Calculate BMR</button>
+
+</a></h5>
+
+{% endblock %}

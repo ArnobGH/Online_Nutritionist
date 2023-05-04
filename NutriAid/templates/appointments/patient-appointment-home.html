@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Appointments{% endblock %}
+
+{% block content %}
+
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block text-center">
+                <h1 class="text-capitalize mb-5 text-lg">Appointments</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section">
+    <div class="container" style="text-align:center">
+        <h3 class="">Upcoming Appointments</h3>
+
+        {% if not upcoming_appointments %}
+        <h5 class="mx-3">No Upcoming Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in upcoming_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h4>Appointment with
+                        <span class="text-color-2">{{ appointment.nutritionist.user.name }}</span></h4>
+                    <h5 class="my-2">In <span class="text-color-2 ">{{ appointment.nutritionist.specialization }}</span>
+                        Department
+                    </h5>
+                    <h4>On <span class="text-color-2">{{ appointment.date }}</span></h4>
+                    <h4>At <span class="text-color-2">{{ appointment.time }}</span></h4>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr/>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container"  style="text-align:center">
+        <h3 class="">Pending Appointments</h3>
+
+        {% if not pending_appointments %}
+        <h5 class="mx-3">No Pending Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in pending_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h4>Requested appointment for
+                        <span class="text-color-2">{{ appointment.nutritionist.user.name }}</span></h4>
+                    <h5 class="my-2">In <span class="text-color-2 ">{{ appointment.nutritionist.specialization }}</span>
+                        Department
+                    </h5>
+                    <h6>On <span class="text-color-2">{{ appointment.date }}</span></h6>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container"  style="text-align:center">
+        <h3 class="">Completed Appointments</h3>
+
+        {% if not completed_appointments %}
+        <h5 class="mx-3">No Completed Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in completed_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h3>Appointment with
+                        <span class="text-color-2">{{ appointment.nutritionist.user.name }}</span></h3>
+                    <h4 class="my-2">In <span class="text-color-2 ">{{ appointment.nutritionist.specialization }}</span>
+                        Department
+                    </h4>
+                    <h4>On <span class="text-color-2">{{ appointment.date }}</span></h4>
+                    <h4>At <span class="text-color-2">{{ appointment.time }}</span></h4>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr/>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container"  style="text-align:center">
+        <h3 class="">Rejected Appointments</h3>
+
+        {% if not rejected_appointments %}
+        <h5 class="mx-3">No Rejected Appointments</h5>
+        {% endif %}
+
+        <div class="row">
+            {% for appointment in rejected_appointments %}
+            <div class="col-lg-4">
+                <div class="card rounded border p-3">
+                    <h3>Requested appointment for
+                        <span class="text-color-2">{{ appointment.nutritionist.user.name }}</span></h3>
+                    <h4 class="my-2">In <span class="text-color-2 ">{{ appointment.nutritionist.specialization }}</span>
+                        Department
+                    </h4>
+                    <h4>On <span class="text-color-2">{{ appointment.date }}</span></h4>
+                    <a href="{% url 'appointment-details' appointment.id %}" class="btn btn-primary my-2">See More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 text-center">
+                <a href="{% url 'nutritionists' %}" class="btn btn-primary btn-icon btn-round-full">
+                    Make New Appointment <i class="icofont-simple-right ml-2"></i>
+                </a>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        <hr/>
+    </div>
+</section>
+
+{% endblock %}

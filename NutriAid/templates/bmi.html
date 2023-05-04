@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<form action="/result/" method='post' style="margin-bottom: 15px;
+                                background: #f7f7f7;
+                                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                                padding: 30px;">
+
+    {% csrf_token %}  
+    <h2 style="text-align:center"> Fillup the form </h2> <br><br> 
+    <h5 style="text-align:center">Enter Height(in inches): <input type="text" name="height"></h5> <br><br>   
+    <h5 style="text-align:center">Enter Weight(in pounds): <input type="text" name="weight"></h5> <br><br>      
+    
+    <div class style="text-align:center">
+        <button class="btn btn-primary btn-round-full" type="submit">
+        Submit <i class="fa fa-user-plus"></i>
+        </button>
+    </div>
+</form>   
+{% endblock %} 
+
+

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Edit profile{% endblock %}
+
+{% block content %}
+
+<div class="container p-5" style="text-align:center">
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="card mb-3">
+                {% if profile.image %}
+                <img
+                        alt="{{ user.name }}"
+                        class="card-img-top"
+                        src="{{profile.image.url}}"
+                        height="200px"
+                >
+                {% else %}
+                <img
+                        alt="{{ user.name }}"
+                        class="card-img-top"
+                        src="{% static 'images/user-placeholder.jpg' %}"
+                        height="200px"
+                >
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ request.user.name }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="card text-left mb-3">
+                <div class="card-header">
+                    <h4 class="card-title">Edit Patient Profile</h4>
+                </div>
+                <form class="p-3 border rounded" enctype="multipart/form-data" method="post">
+
+                    {% csrf_token %}
+
+                    <div class="row my-2">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Phone Number</label>
+                                {{ form.phone|add_class:"form-control" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row my-2">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Date of Birth</label>
+                                {{ form.date_of_birth|add_class:"form-control" }}
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="row my-2">    
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                {{ form.gender|add_class:"form-control" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row my-2">
+                        <div class="col-6 col-md-12">
+                            <div class="form-group">
+                                <label>Update photo</label>
+                                {{ form.image|add_class:"form-control" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mt-3">
+                        <button class="btn btn-block btn-primary btn-md" type="submit"  style="text-align:center">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

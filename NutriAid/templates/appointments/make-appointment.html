@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} - Make Appointment{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block text-center">
+                <span class="text-white">Book your Seat</span>
+                <h1 class="text-capitalize mb-5 text-lg">Make Appointment</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="appoinment section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="mt-3">
+                    <span class="h4">Call for an Emergency Service!</span>
+                    <h3 class="text-color mt-3">Number: +84 789 1256 </h3>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card p-3 mt-5 mt-lg-0 pl-lg-5">
+                    <h2 class="mb-3 title-color">Book an Appointment</h2>
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <b><label>Nutritionist</label></b>
+                                    <h5>{{ nutritionist.user.name }}</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <b><label>Appointment Date</label></b>
+                                    {{ form.date|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <b><label>Patient Name</label></b>
+                                    <input type="text" class="form-control" placeholder="Full Name"
+                                           value="{{ patient.user.name }}">
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                   <b><label>Phone Number</label></b>
+                                    <input type="text" class="form-control" placeholder="Phone Number"
+                                           value="{{ patient.phone }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary mt-3 btn-round-full">
+                            Request Appointment <i class="icofont-simple-right ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
